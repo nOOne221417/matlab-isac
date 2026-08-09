@@ -1,0 +1,32 @@
+# MATLAB editor backups and autosave files
+*.asv
+*.m~
+*.autosave
+
+# MATLAB and Simulink generated code and caches
+slprj/
+codegen/
+sccprj/
+*.slxc
+*.mex*
+*.pdb
+
+# Generated simulation output. Keep source data and small test fixtures elsewhere.
+output/
+outputs/
+results/
+data/generated/
+coverage/
+
+# Local configuration and temporary files
+local/
+*.tmp
+*.bak
+*.log
+
+# Editor and operating-system metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
