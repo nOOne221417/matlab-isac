@@ -25,7 +25,7 @@ classdef Periodogram
             Y_norm = Y ./ reshape(Bnp, 1, N, P);
             
 
-            Xnu = reshape(Y_norm, P, []);  % 快拍
+            Xnu = reshape(permute(Y_norm, [3 2 1]), P, []);  % 快拍
             spectrum = mean(abs(fftshift(fft(Xnu, numfft, 1), 1)).^2, 2); % fft
             spectrumNorm = spectrum / max(spectrum);  % 归一化
 
@@ -40,7 +40,7 @@ classdef Periodogram
             N = waveform.NumSubcarriers;
             Y_norm = Y ./ reshape(Bnp, 1, N, P);
 
-            Xtau = reshape(Y_norm, N, []); % 快拍
+            Xtau = reshape(permute(Y_norm, [2 1 3]), N, []); % 快拍
             spectrum = mean(abs(ifft(Xtau, numfft, 1).^2), 2); % ifft
             spectrumNorm = spectrum / max(spectrum);  % 归一化
             delayAxis = (0:numfft-1).' / (numfft * waveform.DeltaFHz);  % 延迟轴

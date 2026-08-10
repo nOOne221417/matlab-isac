@@ -28,4 +28,15 @@ figure;
 plot(aoa.AngleDeg, aoa.PowerDb);
 xlabel("AoA (deg)");
 ylabel("Normalized power (dB)");
+
+figure;
+plot(range.RangeM, range.PowerDb);
+xlabel("Range (m)");
+ylabel("Normalized power (dB)");
+
+figure;
+plot(doppler.DopplerHz, doppler.PowerDb);
+xlabel("Doppler (Hz)");
+ylabel("Normalized power (dB)");
+
 grid on;

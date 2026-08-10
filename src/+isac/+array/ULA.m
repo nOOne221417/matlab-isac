@@ -14,6 +14,7 @@ classdef ULA
 
         function a = steeringVector(obj, thetaRad)
             index = (0:obj.NumEs-1).';
+            thetaRad = thetaRad(:).';
             a = exp(-1j * 2 * pi * obj.SpacingM /...
                  obj.WavelengthM * index * sin(thetaRad));
         end
