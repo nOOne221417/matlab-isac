@@ -1,6 +1,12 @@
 classdef Periodogram
     methods (Static)
         function result = estimateAoA(Y, array, numfft)
+            arguments
+                Y {mustBeNumeric}
+                array (1,1) isac.array.ULA
+                numfft (1,1) double {mustBeInteger, mustBePositive} = 1024;
+            end
+
             Mr = array.NumEs;
 
             Xtheta = reshape(Y, Mr, []);  % 快拍
@@ -20,6 +26,13 @@ classdef Periodogram
         end
 
         function result = estimateDoppler(Y, Bnp, waveform, numfft)
+            arguments
+                Y {mustBeNumeric}
+                Bnp {mustBeNumeric}
+                waveform (1,1) isac.waveform.OFDM
+                numfft (1,1) double {mustBeInteger, mustBePositive} = 1024;
+            end
+
             P = waveform.NumSymbols;
             N = waveform.NumSubcarriers;
             Y_norm = Y ./ reshape(Bnp, 1, N, P);
@@ -36,12 +49,19 @@ classdef Periodogram
         end
 
         function result = estimateRange(Y, Bnp, waveform, numfft)
+            arguments
+                Y {mustBeNumeric}
+                Bnp {mustBeNumeric}
+                waveform (1,1) isac.waveform.OFDM
+                numfft (1,1) double {mustBeInteger, mustBePositive} = 1024;
+            end
+            
             P = waveform.NumSymbols;
             N = waveform.NumSubcarriers;
             Y_norm = Y ./ reshape(Bnp, 1, N, P);
 
             Xtau = reshape(permute(Y_norm, [2 1 3]), N, []); % 快拍
-            spectrum = mean(abs(ifft(Xtau, numfft, 1).^2), 2); % ifft
+            spectrum = mean(abs(ifft(Xtau, numfft, 1)).^2, 2); % ifft
             spectrumNorm = spectrum / max(spectrum);  % 归一化
             delayAxis = (0:numfft-1).' / (numfft * waveform.DeltaFHz);  % 延迟轴
 

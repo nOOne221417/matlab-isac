@@ -2,12 +2,14 @@ classdef FarFieldMonostatic
     properties (SetAccess = private)
         ReceiveArray    % Array (ULA)
         Waveform        % Waveform (OFDM)
+        noisePower
     end
 
     methods 
         function obj = FarFieldMonostatic(ReceiveArray, waveform)
             obj.ReceiveArray = ReceiveArray;
             obj.Waveform = waveform;
+            obj.noisePower = 0;
         end
 
         function Y = createY(obj, targets, Bnp, SNRdB)
@@ -40,9 +42,9 @@ classdef FarFieldMonostatic
             end
 
             signalPower = mean(abs(Y_tamp(:)).^2);
-            noisePower = signalPower / (10^(SNRdB/10));
+            obj.noisePower = signalPower / (10^(SNRdB/10));
 
-            noise = sqrt(noisePower/2) * (randn(size(Y_tamp)) + 1j * randn(size(Y_tamp)));
+            noise = sqrt(obj.noisePower/2) * (randn(size(Y_tamp)) + 1j * randn(size(Y_tamp)));
             Y = Y_tamp + noise;
         end
     end

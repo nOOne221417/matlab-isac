@@ -23,6 +23,7 @@ classdef MonostaticSimulator < handle
             Y = obj.Channel.createY(obj.Targets, Bnp, obj.SNRdB);
 
             data.Y = Y;
+            data.noisePower = obj.Channel.noisePower;
             data.Symbols = Bnp;
             data.Array = obj.ReceiveArray;
             data.Waveform = obj.Waveform;
