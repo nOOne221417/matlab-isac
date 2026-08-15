@@ -8,12 +8,16 @@ classdef PointTarget
 
     methods
         function obj = PointTarget(aoaDeg, rangeM, velMps, ref)
+            arguments
+                aoaDeg (1,1) double {mustBeReal}
+                rangeM (1,1) double {mustBeNonnegative}
+                velMps (1,1) double {mustBeReal}
+                ref (1,1) double = 1
+            end
             obj.AoADeg = aoaDeg;
             obj.RangeM = rangeM;
             obj.velMps = velMps;
-            if nargin > 3
-                obj.Ref = ref;
-            end
+            obj.Ref = ref;
         end
 
         function thetaRed = angleRad(obj)
